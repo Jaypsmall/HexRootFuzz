@@ -1,42 +1,54 @@
 package com.jaylizapp.hexrootfuzz
 
+import android.app.Application
 import android.os.Environment
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class HexViewModel : ViewModel() {
+class HexViewModel(application: Application) : AndroidViewModel(application) {
     private val shellExecutor = ShellExecutor()
     private val wordlistGenerator = WordlistGenerator()
+
+    companion object {
+        private val staticLogs = mutableStateListOf<String>()
+        private var isExecutorInitialized = false
+    }
 
     private val baseDir = File(Environment.getExternalStorageDirectory(), "HexRootFuzz").apply {
         if (!exists()) mkdirs()
     }
+    
+    private val wordlistsDir = File(baseDir, "wordlists").apply {
+        if (!exists()) mkdirs()
+    }
 
-    var logs = mutableStateListOf<String>()
-        private set
+    val logs: MutableList<String> get() = staticLogs
+
+    var isDarkMode by mutableStateOf(true)
 
     var fuzzTarget by mutableStateOf("http://example.com/FUZZ")
-    var fuzzWordlist by mutableStateOf("/sdcard/wordlist.txt")
+    var fuzzWordlist by mutableStateOf("${wordlistsDir.absolutePath}/common.txt")
     var fuzzOptions by mutableStateOf("-mc 200")
     var fuzzTool by mutableStateOf("ffuf")
 
     var passTarget by mutableStateOf("192.168.1.100")
     var passService by mutableStateOf("ssh")
-    var passUserlist by mutableStateOf("/sdcard/users.txt")
-    var passPasslist by mutableStateOf("/sdcard/pass.txt")
+    var passUserlist by mutableStateOf("${wordlistsDir.absolutePath}/common.txt")
+    var passPasslist by mutableStateOf("${wordlistsDir.absolutePath}/passwords.txt")
     var passAuth by mutableStateOf(false)
 
     var isRunning by mutableStateOf(false)
         private set
 
     // Wordlist PRO States
-    var wlBaseFile by mutableStateOf("/sdcard/base.txt")
+    var wlBaseFile by mutableStateOf("${wordlistsDir.absolutePath}/common.txt")
     var wlCase by mutableStateOf(true)
     var wlLeet by mutableStateOf(false)
     var wlPrefixes by mutableStateOf("admin,root,sys")
@@ -94,30 +106,58 @@ class HexViewModel : ViewModel() {
 
 
     init {
-        logs.add("[INFO] Hex Suite initialized.")
-        logs.add("[INFO] Output folder: ${baseDir.absolutePath}")
-        logs.add("[INFO] Requesting root access...")
-        
-        viewModelScope.launch {
-            // Trigger root request on start
-            shellExecutor.executeCommand("id", true)
-
-            shellExecutor.output.collect { line ->
-                logs.add(line)
-                if (logs.size > 1000) logs.removeAt(0)
+        if (!isExecutorInitialized) {
+            isExecutorInitialized = true
+            logs.add("[INFO] Hex Suite initialized.")
+            logs.add("[INFO] Output folder: ${baseDir.absolutePath}")
+            logs.add("[INFO] Requesting root access...")
+            
+            viewModelScope.launch(Dispatchers.IO) {
+                copyAssetsToStorage()
+                
+                // Trigger root request on start
+                shellExecutor.executeCommand("id", true)
+                
+                shellExecutor.output.collect { line ->
+                    logs.add(line)
+                    if (logs.size > 1000) logs.removeAt(0)
+                }
             }
+        }
+    }
+
+    private fun copyAssetsToStorage() {
+        try {
+            val assets = getApplication<Application>().assets
+            val files = assets.list("wordlists") ?: return
+            files.forEach { fileName ->
+                val outFile = File(wordlistsDir, fileName)
+                if (!outFile.exists()) {
+                    assets.open("wordlists/$fileName").use { input ->
+                        outFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                    logs.add("[INFO] Wordlist copied: $fileName")
+                }
+            }
+        } catch (e: Exception) {
+            logs.add("[ERROR] Failed to copy assets: ${e.message}")
         }
     }
 
     fun runFuzz(useRoot: Boolean) {
         if (isRunning) return
-        val cmd = when (fuzzTool) {
-            "ffuf" -> "ffuf -w $fuzzWordlist -u $fuzzTarget $fuzzOptions"
+        
+        val termuxGoBin = "/data/data/com.termux/files/home/go/bin"
+        val fullCmd = when (fuzzTool) {
+            "ffuf" -> "$termuxGoBin/ffuf -w $fuzzWordlist -u $fuzzTarget $fuzzOptions"
             "gobuster" -> "gobuster dir -w $fuzzWordlist -u $fuzzTarget $fuzzOptions"
             else -> ""
         }
-        if (cmd.isNotEmpty()) {
-            execute(cmd, useRoot)
+
+        if (fullCmd.isNotEmpty()) {
+            execute(fullCmd, useRoot)
         }
     }
 
