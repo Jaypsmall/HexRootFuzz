@@ -188,7 +188,11 @@ class HexViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun installTools() {
-        val cmd = "pkg update && pkg upgrade -y && pkg install ffuf gobuster hydra -y"
-        execute(cmd, false) // Usually termux tools don't need root to install via pkg
+        val termuxPkg = "/data/data/com.termux/files/usr/bin/pkg"
+        val cmd = "$termuxPkg update && $termuxPkg upgrade -y && $termuxPkg install golang git -y && " +
+                 "export HOME=/data/data/com.termux/files/home && " +
+                 "/data/data/com.termux/files/usr/bin/go install github.com/ffuf/ffuf/v2@latest && " +
+                 "$termuxPkg install gobuster hydra -y"
+        execute(cmd, true)
     }
 }

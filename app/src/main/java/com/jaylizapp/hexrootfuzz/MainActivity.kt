@@ -46,13 +46,49 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jaylizapp.hexrootfuzz.ui.theme.*
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkPermissions()
         enableEdgeToEdge()
         setContent {
             HexRootFuzzTheme {
                 HexApp()
+            }
+        }
+    }
+
+    private fun checkPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                try {
+                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                    intent.addCategory("android.intent.category.DEFAULT")
+                    intent.data = Uri.parse(String.format("package:%s", applicationContext.packageName))
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                    startActivity(intent)
+                }
+            }
+        } else {
+            val permissions = arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            if (permissions.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
+                ActivityCompat.requestPermissions(this, permissions, 100)
             }
         }
     }
@@ -109,7 +145,7 @@ fun HexApp(viewModel: HexViewModel = viewModel()) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
-                        .padding(horizontal = 12.dp),
+                        .padding(horizontal = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
@@ -318,11 +354,9 @@ fun ToolSelector(selectedTool: String, isDarkMode: Boolean, onToolSelected: (Str
 fun FuzzingScreen(vm: HexViewModel) {
     val isDarkMode = vm.isDarkMode
     val accent = if (isDarkMode) HexAccent else LightAccent
-    val accentLow = if (isDarkMode) HexAccentLow else LightAccentLow
-    val panel = if (isDarkMode) HexPanel else Color.White
     val textColor = if (isDarkMode) HexWhite else Color.Black
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxSize().verticalScroll(rememberScrollState())) {
+    Column(modifier = Modifier.padding(14.dp).fillMaxSize().verticalScroll(rememberScrollState())) {
         HexInput(
             value = vm.fuzzTarget,
             onValueChange = { vm.fuzzTarget = it },
@@ -366,7 +400,7 @@ fun FuzzingScreen(vm: HexViewModel) {
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
-        ControlButtons(vm, onRun = { vm.runFuzz(true) })
+        ControlButtons(vm, onRunRoot = { vm.runFuzz(true) }, onRunNoRoot = { vm.runFuzz(false) })
     }
 }
 
@@ -374,11 +408,9 @@ fun FuzzingScreen(vm: HexViewModel) {
 fun PasswordScreen(vm: HexViewModel) {
     val isDarkMode = vm.isDarkMode
     val accent = if (isDarkMode) HexAccent else LightAccent
-    val accentLow = if (isDarkMode) HexAccentLow else LightAccentLow
-    val panel = if (isDarkMode) HexPanel else Color.White
     val textColor = if (isDarkMode) HexWhite else Color.Black
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxSize().verticalScroll(rememberScrollState())) {
+    Column(modifier = Modifier.padding(14.dp).fillMaxSize().verticalScroll(rememberScrollState())) {
         HexInput(
             value = vm.passTarget,
             onValueChange = { vm.passTarget = it },
@@ -424,7 +456,7 @@ fun PasswordScreen(vm: HexViewModel) {
             Text("I have authorization", color = textColor, fontFamily = FontFamily.Monospace)
         }
         Spacer(modifier = Modifier.height(20.dp))
-        ControlButtons(vm, onRun = { vm.runPassAudit(true) })
+        ControlButtons(vm, onRunRoot = { vm.runPassAudit(true) }, onRunNoRoot = { vm.runPassAudit(false) })
     }
 }
 
@@ -498,7 +530,7 @@ fun LogsScreen(vm: HexViewModel) {
     val okColor = if (isDarkMode) HexOk else Color(0xFF2E7D32)
 
     Column(modifier = Modifier.fillMaxSize().background(bg)) {
-        Row(modifier = Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.End) {
+        Row(modifier = Modifier.fillMaxWidth().padding(6.dp), horizontalArrangement = Arrangement.End) {
             HexButton(
                 text = "Clear",
                 icon = Icons.Default.Delete,
@@ -508,7 +540,7 @@ fun LogsScreen(vm: HexViewModel) {
                 onClick = { vm.clearLogs() }
             )
         }
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(5.dp)) {
             items(vm.logs) { log ->
                 Text(
                     text = log,
@@ -530,15 +562,15 @@ fun LogsScreen(vm: HexViewModel) {
 fun ConsoleSection(vm: HexViewModel) {
     val context = androidx.compose.ui.platform.LocalContext.current
     val isDarkMode = vm.isDarkMode
-    val terminalBg = if (isDarkMode) HexBg else Color(0xFF1E1E1E) // Terminal siempre oscuro o gris oscuro
+    val terminalBg = if (isDarkMode) HexBg else Color(0xFFE8EAF6) 
     val currentAccent = if (isDarkMode) HexAccent else LightAccent
     val currentAccentLow = if (isDarkMode) HexAccentLow else LightAccentLow
-    val currentOk = if (isDarkMode) HexOk else Color(0xFF4CAF50)
+    val currentOk = if (isDarkMode) HexOk else Color(0xFF2E7D32)
     
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(300.dp)
             .background(terminalBg, RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             .border(1.dp, currentAccentLow, RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             .padding(1.dp)
@@ -551,10 +583,13 @@ fun ConsoleSection(vm: HexViewModel) {
             }
     ) {
         Box(modifier = Modifier.fillMaxSize().background(
-            Brush.verticalGradient(listOf(Color.Black.copy(0.2f), terminalBg))
+            Brush.verticalGradient(listOf(
+                if (isDarkMode) Color.Black.copy(0.2f) else Color.White.copy(0.3f), 
+                terminalBg
+            ))
         ))
         
-        Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+        Column(modifier = Modifier.fillMaxSize().padding(4.dp)) {
             Text("CONSOLE OUTPUT (Click to Copy)", color = currentAccent, fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace)
             HorizontalDivider(color = currentAccentLow, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
             
@@ -566,10 +601,11 @@ fun ConsoleSection(vm: HexViewModel) {
                             color = when {
                                 log.startsWith("!") -> currentAccent
                                 log.startsWith("[ERROR]") -> currentAccent
-                                log.startsWith("[#]") -> Color.Cyan
+                                log.startsWith("[SUCCESS]") -> currentOk
+                                log.startsWith("[#]") -> if (isDarkMode) Color.Cyan else Color(0xFF0056D2)
                                 log.startsWith("[✔]") -> currentOk
-                                log.startsWith("[INFO]") -> Color.Cyan
-                                else -> currentOk.copy(alpha = 0.8f)
+                                log.startsWith("[INFO]") -> if (isDarkMode) Color.Cyan else Color(0xFF0056D2)
+                                else -> if (isDarkMode) HexOk.copy(alpha = 0.8f) else Color.Black.copy(alpha = 0.8f)
                             },
                             fontFamily = FontFamily.Monospace,
                             fontSize = 11.sp
@@ -582,25 +618,40 @@ fun ConsoleSection(vm: HexViewModel) {
 }
 
 @Composable
-fun ControlButtons(vm: HexViewModel, onRun: () -> Unit) {
+fun ControlButtons(vm: HexViewModel, onRunRoot: () -> Unit, onRunNoRoot: () -> Unit) {
     val isDarkMode = vm.isDarkMode
     val accent = if (isDarkMode) HexAccent else LightAccent
     val accentLow = if (isDarkMode) HexAccentLow else LightAccentLow
     val panel = if (isDarkMode) HexPanel else Color.White
 
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Box(modifier = Modifier.weight(1f)) {
             HexButton(
-                text = "RUN (ROOT)",
+                text = "ROOT",
+                icon = Icons.Default.Security,
+                isError = false,
+                accent = accent,
+                accentLow = accentLow,
+                panel = panel,
+                onClick = onRunRoot
+            )
+        }
+        Box(modifier = Modifier.weight(1.1f)) {
+            HexButton(
+                text = "NO ROOT",
                 icon = Icons.Default.PlayArrow,
                 isError = false,
                 accent = accent,
                 accentLow = accentLow,
                 panel = panel,
-                onClick = onRun
+                onClick = onRunNoRoot
             )
         }
-        Box(modifier = Modifier.weight(1f)) {
+        Box(modifier = Modifier.weight(0.9f)) {
             HexButton(
                 text = "STOP",
                 icon = Icons.Default.Stop,
