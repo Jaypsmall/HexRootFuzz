@@ -67,14 +67,6 @@ Generate custom wordlists including:
 
 ---
 
-## 📱 Screenshots
-
-```
-
-```
-
----
-
 ## 🚀 Requirements
 
 - Android 8.0+
