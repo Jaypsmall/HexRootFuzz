@@ -1,4 +1,4 @@
-# ⚡ HexRootFuzz
+# 😈 HEX ROOT FUZZ (V.1.0.0)
 
  Android application for web security testing and reconnaissance from mobile devices.
 
@@ -10,7 +10,7 @@
 
 ## 📖 Overview
 
-HexRootFuzz is an Android application designed to simplify web reconnaissance and security assessments through an intuitive graphical interface.
+😈 **HexRootFuzz** is an Android application designed to simplify web reconnaissance and security assessments through an intuitive graphical interface.
 
 Instead of manually executing terminal commands, HexRootFuzz provides an all-in-one environment for running popular security tools directly from Android.
 
@@ -98,15 +98,7 @@ HexRootFuzz/
 
 ## 📦 Installation
 
-Clone the repository
-
-```bash
-git clone https://github.com/jaypsmall/HexRootFuzz.git
-```
-
-Open the project in Android Studio.
-
-Build and install.
+https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk
 
 ---
 
@@ -138,7 +130,7 @@ ffuf \
 
 ## ⚠ Disclaimer
 
-HexRootFuzz is intended **only for authorized security testing, research, and educational purposes**.
+😈 **HexRootFuzz** is intended **only for authorized security testing, research, and educational purposes**.
 
 Users are solely responsible for ensuring they have explicit permission before testing any target.
 
