@@ -1,4 +1,4 @@
-# 😈 HEX ROOT FUZZ (V.1.0.0)
+# 😈 HEX ROOT FUZZ (V.1.0.0)   ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=yellow) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=yellow)
 
  Android application for web security testing and reconnaissance from mobile devices.
 
