@@ -9,6 +9,7 @@ Android application for web security testing and reconnaissance from mobile devi
 Instead of manually executing terminal commands, HexRootFuzz provides an all-in-one environment for running popular security tools directly from Android.
 
 **https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk**
+
 ---
 
 <p align="center" width="100%">
