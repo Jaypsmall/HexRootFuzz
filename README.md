@@ -11,7 +11,7 @@ Instead of manually executing terminal commands, HexRootFuzz provides an all-in-
 **https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk**
 ---
 
-<p align="center">
+<p align="center" width="100%">
   <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image2.png" width="30%" />
   <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image3.png" width="30%" />
   <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image4.png" width="30%" />
