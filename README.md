@@ -1,4 +1,4 @@
-# 😈 HEX ROOT FUZZ (V.1.0.2)   ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=yellow) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=yellow)
+# 😈 HEX ROOT FUZZ (V.1.0.2)   ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=3868D8) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=3868D8)
 
 😈 **HexRootFuzz** is an Android application designed to simplify web reconnaissance and security assessments through an intuitive graphical interface.
 
@@ -132,7 +132,7 @@ Unauthorized security testing may violate laws or terms of service.
 
 ---
 
-## ❤️ Contributing
+## 💙 Contributing
 
 Pull requests are welcome.
 
@@ -146,4 +146,4 @@ MIT License
 
 ---
 
-Made with ❤️ using Kotlin + Android + Jetpack Compose
+Made with 💙 using Kotlin + Android + Jetpack Compose
