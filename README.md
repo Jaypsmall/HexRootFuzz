@@ -4,7 +4,9 @@
 
 Instead of manually executing terminal commands, HexRootFuzz provides an all-in-one environment for running popular security tools directly from Android.
 
-* **https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk**
+<a href="https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk">
+ <img src="https://img.shields.io/badge/DOWNLOAD_HEXROOTFUZZ_v1.0.2_APK-181717?style=flat&logo=android&logoColor=3868D8" alt="Download Release">
+</a>
 
 ---
 
