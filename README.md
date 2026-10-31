@@ -1,86 +1,86 @@
-# 😈 HEX ROOT FUZZ (V.1.0.2)   ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=3868D8) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=3868D8)
+# 😈 HEX ROOT FUZZ (V.1.0.2) ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=3868D8) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=3868D8)
 
-😈 **HexRootFuzz** is an Android application designed to simplify web reconnaissance and security assessments through an intuitive graphical interface.
+😈 **HexRootFuzz** es una aplicación para Android diseñada para simplificar el reconocimiento web y las evaluaciones de seguridad mediante una interfaz gráfica intuitiva.
 
-Instead of manually executing terminal commands, HexRootFuzz provides an all-in-one environment for running popular security tools directly from Android.
+En lugar de ejecutar manualmente comandos en la terminal, HexRootFuzz proporciona un entorno integral para ejecutar herramientas de seguridad populares directamente desde Android.
 
 <a href="https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk">
- <img src="https://img.shields.io/badge/DOWNLOAD_HEXROOTFUZZ_v1.0.2_APK-181717?style=flat&logo=android&logoColor=3868D8" alt="Download Release">
+<img src="https://img.shields.io/badge/DOWNLOAD_HEXROOTFUZZ_v1.0.2_APK-181717?style=flat&logo=android&logoColor=3868D8" alt="Descargar versión">
 </a>
 
 ---
 
 <p align="center" width="100%">
-  <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image2.png" width="30%" />
-  <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image3.png" width="30%" />
-  <img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image4.png" width="30%" />
+<img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image2.png" width="30%" />
+<img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image3.png" width="30%" />
+<img src="https://github.com/Jaypsmall/HexRootFuzz/blob/master/assets/image4.png" width="30%" />
 </p>
 
 ---
 
-## ✨ Features
+## ✨ Funcionalidades
 
-- 🔍 FFUF integration
-- 📂 Gobuster integration
-- 🔑 Hydra integration
-- 📝 Custom wordlist generator
-- 📁 Wordlist manager
-- 📊 Real-time execution logs
-- 📋 Copy results
-- 📤 Export scan results
-- 🎨 Modern Material Design interface
+- 🔍 Integración con FFUF
+- 📂 Integración con Gobuster
+- 🔑 Integración con Hydra
+- 📝 Generador de listas de palabras personalizadas
+- 📁 Gestor de listas de palabras
+- 📊 Registros de ejecución en tiempo real
+- 📋 Copiar resultados
+- 📤 Exportar resultados del análisis
+- 🎨 Interfaz moderna con Material Design
 
 ---
 
-## 🛠 Included Tools
+## 🛠 Herramientas incluidas
 
 ### FFUF
 
-- Directory fuzzing
-- API endpoint discovery
-- Hidden files detection
-- Response filtering
-- Status code filtering
+- Fuzzing de directorios
+- API  Descubrimiento de puntos finales
+- Detección de archivos ocultos
+- Filtrado de respuestas
+- Filtrado de códigos de estado
 
 ---
 
 ### Gobuster
 
-- Directory enumeration
-- DNS enumeration
-- Virtual host discovery
+- Enumeración de directorios
+- Enumeración de DNS
+- Descubrimiento de hosts virtuales
 
 ---
 
 ### Hydra
 
-Supports credential testing against compatible authentication services for authorized security assessments.
+Admite pruebas de credenciales con servicios de autenticación compatibles para evaluaciones de seguridad autorizadas.
 
 ---
 
-### Wordlist Generator
+### Generador de listas de palabras
 
-Generate custom wordlists including:
+Genera listas de palabras personalizadas que incluyen:
 
-- Common directories
-- API endpoints
-- Password lists
-- Custom dictionaries
+- Directorios comunes
+- Puntos finales de la API
+- Listas de contraseñas
+- Diccionarios personalizados
 
 ---
 
-## 🚀 Requirements
+## 🚀 Requisitos
 
 - Android 8.0+
 - Termux
-- Root access (optional depending on configuration)
+- Acceso root (opcional según la configuración)
 - FFUF
 - Gobuster
 - Hydra
 
 ---
 
-## 📂 Project Structure
+## 📂 Estructura del proyecto
 
 ```
 HexRootFuzz/
@@ -88,17 +88,17 @@ HexRootFuzz/
 ├── app/
 ├── ui/
 ├── tools/
-│   ├── ffuf
-│   ├── gobuster
-│   ├── hydra
-│   └── wordlists
-├── utils/
-└── assets/
+│ ├── ffuf
+│ ├── gobuster
+│ ├── hydra
+│ └── wordlists
+├──  utilidades/
+└── recursos/
 ```
 
 ---
 
-## ⚙ Example FFUF
+## ⚙ Ejemplo FFUF
 
 ```bash
 ffuf \
@@ -109,43 +109,43 @@ ffuf \
 
 ---
 
-## 🎯 Planned Features
+## 🎯 Funcionalidades planificadas
 
-- Dark mode improvements
-- Scan history
-- JSON export
-- CSV export
-- HTML reports
-- Multi-thread configuration
-- Custom headers
-- Cookie support
-- Proxy support
-- Recursive fuzzing
-
----
-
-## ⚠ Disclaimer
-
-😈 **HexRootFuzz** is intended **only for authorized security testing, research, and educational purposes**.
-
-Users are solely responsible for ensuring they have explicit permission before testing any target.
-
-Unauthorized security testing may violate laws or terms of service.
+- Mejoras en el modo oscuro
+- Historial de escaneo
+- Exportación a JSON
+- Exportación a CSV
+- Informes HTML
+- Configuración multihilo
+- Encabezados personalizados
+- Compatibilidad con cookies
+- Compatibilidad con proxies
+- Fuzzing recursivo
 
 ---
 
-## 💙 Contributing
+## ⚠ Aviso legal
 
-Pull requests are welcome.
+😈 **HexRootFuzz** está destinado **únicamente para pruebas de seguridad, investigación y fines educativos autorizados**.
 
-If you'd like to improve the project, feel free to fork it and submit your ideas.
+Los usuarios son los únicos responsables de asegurarse de tener permiso explícito antes de probar cualquier objetivo.
 
----
-
-## 📄 License
-
-MIT License
+Las pruebas de seguridad no autorizadas pueden infringir las leyes o los términos de servicio.
 
 ---
 
-Made with 💙 using Kotlin + Android + Jetpack Compose
+## 💙 Contribuciones
+
+Se aceptan solicitudes de extracción.
+
+Si deseas mejorar el proyecto, puedes bifurcarlo y enviar tus ideas.
+
+---
+
+## 📄 Licencia
+
+Licencia MIT
+
+---
+
+Desarrollado con 💙 usando Kotlin + Android + Jetpack Compose
