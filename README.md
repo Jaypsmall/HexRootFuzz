@@ -1,11 +1,11 @@
-# 😈 HEX ROOT FUZZ (V.1.0.2) ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=3868D8) ![Kotlin](https://img.shields.io/badge/kotlin-181717?style=flat&logo=kotlin&logoColor=3868D8)
+# 😈 HEX ROOT FUZZ (V.1.0.2) ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=green) ![Kotlin](https://img.shields.io/badge/Kotlin-181717?style=flat&logo=kotlin&logoColor=C81AEE) 
 
 😈 **HexRootFuzz** es una aplicación para Android diseñada para simplificar el reconocimiento web y las evaluaciones de seguridad mediante una interfaz gráfica intuitiva.
 
 En lugar de ejecutar manualmente comandos en la terminal, HexRootFuzz proporciona un entorno integral para ejecutar herramientas de seguridad populares directamente desde Android.
 
 <a href="https://github.com/Jaypsmall/HexRootFuzz/releases/download/android-root/HexRootFuzz_v1.0.2.apk">
-<img src="https://img.shields.io/badge/DOWNLOAD_HEXROOTFUZZ_v1.0.2_APK-181717?style=flat&logo=android&logoColor=3868D8" alt="Descargar versión">
+<img src="https://img.shields.io/badge/DOWNLOAD_HEXROOTFUZZ_v1.0.2_APK-181717?style=flat&logo=android&logoColor=green" alt="Descargar versión">
 </a>
 
 ---
