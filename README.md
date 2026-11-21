@@ -1,4 +1,4 @@
-# 😈 HEX ROOT FUZZ (V.1.0.2) ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=green) ![Kotlin](https://img.shields.io/badge/Kotlin-181717?style=flat&logo=kotlin&logoColor=C81AEE) 
+# 😈 HEX ROOT FUZZ (V.1.0.2) ![Android](https://img.shields.io/badge/Android-181717?style=flat&logo=android&logoColor=green) ![Kotlin](https://img.shields.io/badge/Kotlin-181717?style=flat&logo=kotlin&logoColor=C81AEE) <a href="https://kotlinlang.org" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kotlin/kotlin-original.svg" height="30" alt="Kotlin" />
 
 😈 **HexRootFuzz** es una aplicación para Android diseñada para simplificar el reconocimiento web y las evaluaciones de seguridad mediante una interfaz gráfica intuitiva.
 
